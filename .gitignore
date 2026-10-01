@@ -1,0 +1,11 @@
+.vs/
+.vscode/
+
+*.o
+*.mod
+
+run
+run.exe
+
+*.out
+*.err
