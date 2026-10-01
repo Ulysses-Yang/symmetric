@@ -16,7 +16,7 @@ CHARACTER (LEN =12) ::   CH(1:10)
 REAL*8,external :: K0,K1,K2,S,dSdT,SS,tau_Thom,P_Thom,G,Kel,Iel
 REAL*8,external :: JR_Peltier, JL_Peltier, J_L2Evn_Fourier, J_R2Evn_Fourier
 REAL*8,external :: J_Evn2L_Fourier, J_Evn2R_Fourier
-REAL*8,external :: J_R2C_Fourier, J_L2C_Fourier, J_C2R_Fourier, J_C2L_Fourier
+REAL*8,external :: J_R2C_Fourier_noKel, J_L2C_Fourier_noKel, J_C2R_Fourier, J_C2L_Fourier
 !   
 !!! output parameters for Peltier cooling effect    
 !    N_Vb=201         !! read from global_parameter, number of bias voltage points for testing Peltier cooling effect
@@ -104,7 +104,7 @@ write(21,777) ('alpha=','',alpha(I1)*1.d9,'','Delta T=T-T0','','','','','', I1=1
 !
 do I2=1,N_Vb
 write(21,777) (alpha(I1)*1.d9, VV(I2)*1.d3, SS1TL(I1,I2)-T0, SS1TC(I1,I2)-T0, SS1TR(I1,I2)-T0, &
-               SS1JL(I1,I2)*1.d9, SS1JR(I1,I2)*1.d9 , SS1P_Thom(I1,I2),  &
+               SS1JL(I1,I2)*1.d9, SS1JR(I1,I2)*1.d9 , SS1P_Thom(I1,I2)*1.d9,  &
                (SS1JL(I1,I2)+SS1JR(I1,I2))*1.d9 , SS1IelVb(I1,I2)*1.d9 , I1=1,N_alpha)
 enddo  !do I2=1,N_Vb 
 close(21)
@@ -192,7 +192,7 @@ subroutine FsolveTLTCTR_Thomson(Tout)
         real*8 Vb_in
         REAL*8,external :: JR_Peltier, JL_Peltier, J_L2Evn_Fourier, J_R2Evn_Fourier
         REAL*8,external :: J_Evn2L_Fourier, J_Evn2R_Fourier
-        REAL*8,external :: J_R2C_Fourier, J_L2C_Fourier, J_C2R_Fourier, J_C2L_Fourier
+        REAL*8,external :: J_R2C_Fourier_noKel, J_L2C_Fourier_noKel, J_C2R_Fourier, J_C2L_Fourier
         REAL*8,external :: P_Thom       
         ! P_Thom(Vb_in,TL_in,TC_in,TR_in)=-1.d0 * tau_Thom(T) * I * \Delta T
         !JR_Peltier(Vb_in,TL_in,TR_in); JL_Peltier(Vb_in,TL_in,TR_in);

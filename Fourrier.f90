@@ -192,7 +192,7 @@ function J_R2Evn_Fourier(TRin)   !Thermal current J^{R->Env}_Fourier(TR,T0,K_R2T
 use global_parameters  !K_TR2T0 from global_parameters
 real*8, intent(in) :: TRin
 real*8 TR,J_R2Evn_Fourier
-TL=TLin
+TR=TRin
 !Fourier's law for thermal current from "Right" electrod to "environment"    
 J_R2Evn_Fourier= -1.d0* K_TR2T0 * (T0-TR) 
 !
@@ -204,7 +204,7 @@ function J_Evn2R_Fourier(TRin)   !Thermal current J^{R->Env}_Fourier(TR,T0,K_R2T
 use global_parameters  !K_TR2T0 from global_parameters
 real*8, intent(in) :: TRin
 real*8 TR,J_Evn2R_Fourier
-TL=TLin
+TR=TRin
 !Fourier's law for thermal current from "Right" electrod to "environment"    
 J_Evn2R_Fourier= -1.d0* K_TR2T0 * (TR-T0) 
 !
