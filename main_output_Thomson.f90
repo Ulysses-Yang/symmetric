@@ -205,7 +205,7 @@ subroutine FsolveTLTCTR_Thomson(Tout)
         
         fval0(1) = (JL_Peltier(Vb_in,x(1),x(3)) + J_Evn2L_Fourier(x(1)) + J_C2L_Fourier(x(2),x(1)))*1.d14
         
-        fval0(2) = (J_L2C_Fourier(x(1),x(2)) + J_R2C_Fourier(x(3),x(2)) +P_Thom(Vb_in, x(1), x(2), x(3))  )*1.d14
+        fval0(2) = (J_L2C_Fourier_noKel(x(1),x(2)) + J_R2C_Fourier_noKel(x(3),x(2)) +P_Thom(Vb_in, x(1), x(2), x(3)))*1.d14
         
 
         fval0(3) = (JR_Peltier(Vb_in,x(1),x(3)) + J_Evn2R_Fourier(x(3)) + J_C2R_Fourier(x(2),x(3)))*1.d14

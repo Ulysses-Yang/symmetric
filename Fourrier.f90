@@ -160,7 +160,7 @@ P_Thom =(1.d0)*tau_Thom(T0)*Iel(Vb2,TL,TR)*(TR-TL)
 !
 return
 end function  P_Thom             
-    
+
 !!===============================================================================   
 function J_L2Evn_Fourier(TLin)   !Thermal current J^{L->Env}_Fourier(TL,T0,K_L2T0)
 !! J_L2Evn_Fourier in unit of W/s 
@@ -226,6 +226,21 @@ J_R2C_Fourier= -1.d0* K_TLR2TC * (TC-TR)
 !
 return
 end function J_R2C_Fourier 
+
+function J_R2C_Fourier_noKel(TRin,TCin)   !Thermal current J^{R->C}_Fourier(TR,TC,K_TLR2TC)
+!! J_R2C_Fourier in unit of W/s 
+use global_parameters   !K_TLR2TC from global_parameters
+real*8, intent(in) :: TRin,TCin
+real*8 TR,TC,J_R2C_Fourier_noKel
+REAL*8, external:: Kel
+TR=TRin
+TC=TCin 
+!Fourier's law for thermal current from the "Right" electrode to "Center Channel"
+K_TLR2TC=Kph
+J_R2C_Fourier_noKel= -1.d0* K_TLR2TC * (TC-TR)
+!
+return
+end function J_R2C_Fourier_noKel
     
 !!2===============================================================================    
 function J_C2R_Fourier(TCin,TRin)   !Thermal current J^{C->R}_Fourier(TR,TC,K_TLR2TC)
@@ -237,7 +252,7 @@ REAL*8, external:: Kel
 TR=TRin
 TC=TCin
 !Fourier's law for thermal current from "Center Channel" to the "Right" electrode to
-K_TLR2TC=Kph+Kel(TC)
+K_TLR2TC=Kph !Delete Kel
 J_C2R_Fourier= -1.d0* K_TLR2TC * (TR-TC) 
 !
 return
@@ -256,7 +271,23 @@ K_TLR2TC=Kph+Kel(TC)
 J_L2C_Fourier= -1.d0* K_TLR2TC * (TC-TL)
 !
 return
-end function J_L2C_Fourier     
+end function J_L2C_Fourier 
+
+function J_L2C_Fourier_noKel(TLin,TCin)   !Thermal current J^{L->C}_Fourier(TL,TC,K_TLR2TC)
+!! J_L2C_Fourier in unit of W/s 
+use global_parameters     !K_TLR2TC from global_parameters
+real*8, intent(in) :: TLin,TCin
+real*8 TL,TC,J_L2C_Fourier_noKel
+REAL*8, external:: Kel
+TL=TLin
+TC=TCin 
+!Fourier's law for thermal current from the "Left" electrode to "Center Channel"
+K_TLR2TC=Kph
+ J_L2C_Fourier_noKel= -1.d0* K_TLR2TC * (TC-TL)
+!
+return
+end function  J_L2C_Fourier_noKel
+
 !!4===============================================================================    
 function J_C2L_Fourier(TCin,TLin)   !Thermal current J^{C->L}_Fourier(TL,TC,K_TLR2TC)
 !! J_C2L_Fourier in unit of W/s 
@@ -267,7 +298,7 @@ REAL*8, external:: Kel
 TL=TLin
 TC=TCin
 !Fourier's law for thermal current from "Center Channel" to the "Left" electrode to 
-K_TLR2TC=Kph+Kel(TC)
+K_TLR2TC=Kph !Delete Kel
 J_C2L_Fourier= -1.d0* K_TLR2TC * (TL-TC) 
 !
 return
