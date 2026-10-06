@@ -5,7 +5,7 @@ module global_parameters
   REAL*8, parameter:: m0=9.10938356D-31 
   REAL*8, parameter:: alpha_in=0.83, alpha_out=0.33, delta_E=1.d-4 !interval of energy 1.d-3 eV recommended) 
   REAL*8, parameter:: T0=300.d0 ! Envoronment temperature for in K
-  integer,parameter :: N_Vb=201 , N_alpha=201  ! number of bias voltage and alpha for calculation
+  integer,parameter :: N_Vb=51 , N_alpha=51  ! number of bias voltage and alpha for calculation
   REAL*8,save::  SS1TL(N_alpha,N_Vb), SS1TC(N_alpha,N_Vb), SS1TR(N_alpha,N_Vb)
   real*8,save::  K_TL2T0    ! thermal conductance between the left electrode and environment at T0
   real*8,save::  K_TR2T0    ! thermal conductance between the left electrode and environment at T0

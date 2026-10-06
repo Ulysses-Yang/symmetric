@@ -155,8 +155,12 @@ subroutine FsolveTLTCTR_Thomson(Tout)
 	implicit none
 	real*8, dimension(3,3) :: jacob, Q, R
 	real*8, dimension(3) :: xout2, fval,Tout
-	integer ::fsolveinfo
-    
+integer :: fsolveinfo
+integer, save :: solve_count = 0
+
+solve_count = solve_count + 1
+
+write(*,'(A,I0)') 'FsolveHybrid ', solve_count
 
 	call FsolveHybrid( &
 		fun          = heatmodel, &         ! Function to be solved
@@ -179,7 +183,7 @@ subroutine FsolveTLTCTR_Thomson(Tout)
 	! write(*,*) 'Function Value at the solution:'
 	! call VectorWrite(fval)
     ! write(*,"(5(A12,E12.4))") 'T0=', T0, 'Vb=', Vb,'K_TLR2TC=', K_TLR2TC, 'K_TL2T0=', K_TL2T0, 'K_TR2T0=', K_TR2T0
-    Tout(:)=xout2(:)	
+    ! Tout(:)=xout2(:)	
 !!    
 	contains
 		subroutine heatmodel(x, fval0)
