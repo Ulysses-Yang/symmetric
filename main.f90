@@ -32,12 +32,12 @@ call read_tau      !Read , calculate and iterpolate tau(E) from tau.inp
 
 !!=============================================================================
 !! Set thermal conductance for Fourier's law of heat Conduction:
-!! a typical nanojunction with a length of 10 nm and a cross-section of 1 nm^2 (see e.g. Nature 498, 209¡V212 (2013))
+!! a typical nanojunction with a length of 10 nm and a cross-section of 1 nm^2 (see e.g. Nature 498, 209ï¿½V212 (2013))
 !! K_TLR2TC=Kph+Kel(T0) is the total thermal conductance of the junction, which includes both phonon and electron contributions.
-!! K_TLR2TC=100.d-11+Kel(T0) !(95~105)*10^-11  W/K is the value of the Au phonon's thermal conductance (³¢©s¾Ç LAMPPS)
+!! K_TLR2TC=100.d-11+Kel(T0) !(95~105)*10^-11  W/K is the value of the Au phonon's thermal conductance (ï¿½ï¿½ï¿½sï¿½ï¿½ LAMPPS)
 !!-----------------------------------------------------------------------------
-Kph=2.6d-11    ! (2.6~2.8)*10^-11 W/K is the value of the DBDT phonon's thermal conductance (³¢©s¾Ç LAMPPS)
-!Kph=100.d-11    !(95~105)*10^-11  W/K is the value of the Au phonon's thermal conductance (³¢©s¾Ç LAMPPS)
+Kph=2.6d-11    ! (2.6~2.8)*10^-11 W/K is the value of the DBDT phonon's thermal conductance (ï¿½ï¿½ï¿½sï¿½ï¿½ LAMPPS)
+!Kph=100.d-11    !(95~105)*10^-11  W/K is the value of the Au phonon's thermal conductance (ï¿½ï¿½ï¿½sï¿½ï¿½ LAMPPS)
 K_TLR2TC=Kph+Kel(T0) 
 
 !!-----------------------------------------------------------------------------
@@ -91,196 +91,196 @@ call main_output_Thomson                !check ok!20262021!
 !!=============================================================================
 
 
-!!=============================================================================
-!!  Test region: preparing and testing 
-777 format(1x, *(g0, ", "))  
-    end program mainprogram
-!!=============================================================================
-!!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
-!!=============================================================================
+! !!=============================================================================
+! !!  Test region: preparing and testing 
+! 777 format(1x, *(g0, ", "))  
+!     end program mainprogram
+! !!=============================================================================
+! !!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+! !!=============================================================================
 
 
 
-subroutine doglegtest
-use myutility; use hybrid
-! subroutine to test dogleg
+! subroutine doglegtest
+! use myutility; use hybrid
+! ! subroutine to test dogleg
 
-implicit none
-real(kind=db), dimension(3,3) :: jacob, Q, R
-real(kind=db), dimension(3) :: x0, p, Qtf
-external  :: funs2
-real(kind=db), dimension(3) ::  fval
-real(kind=db) :: delta
-integer :: flag
-! real(kind=db), dimension(2,2) :: GetJacobian
+! implicit none
+! real(kind=db), dimension(3,3) :: jacob, Q, R
+! real(kind=db), dimension(3) :: x0, p, Qtf
+! external  :: funs2
+! real(kind=db), dimension(3) ::  fval
+! real(kind=db) :: delta
+! integer :: flag
+! ! real(kind=db), dimension(2,2) :: GetJacobian
 
-x0(1) = 0.5_db
-x0(2) = 1.0_db
-x0(3) = 1.5_db
-delta = 0.10_db
+! x0(1) = 0.5_db
+! x0(2) = 1.0_db
+! x0(3) = 1.5_db
+! delta = 0.10_db
 
-call funs2(x0,fval)
-write(*,*) 'funs2([0.50, 1.00. 1.50 ]):'
-write(*,*) fval
+! call funs2(x0,fval)
+! write(*,*) 'funs2([0.50, 1.00. 1.50 ]):'
+! write(*,*) fval
 
-x0 = x0+1
-call funs2(x0,fval)
-call GetJacobian(jacob,  funs2, x0, 0.0001_db,fval)
-call QRfactorization(jacob,Q,R)
+! x0 = x0+1
+! call funs2(x0,fval)
+! call GetJacobian(jacob,  funs2, x0, 0.0001_db,fval)
+! call QRfactorization(jacob,Q,R)
 
-Qtf = matmul(transpose(Q), fval)
-call dogleg(p,Q,R,delta,Qtf,flag)
+! Qtf = matmul(transpose(Q), fval)
+! call dogleg(p,Q,R,delta,Qtf,flag)
 
-write(*,*) 'p:'
-write(*,*) p
-write(*,*) 'flag:'
-write(*,*) flag
+! write(*,*) 'p:'
+! write(*,*) p
+! write(*,*) 'flag:'
+! write(*,*) flag
 
-end subroutine doglegtest
-
-
-
-subroutine finitedifftest()
-use myutility; use hybrid, only : GetJacobian
-! test finite difference
-implicit none
-
-real(kind=db), dimension(2,2) :: jacob
-real(kind=db), dimension(2) :: x0
-external  :: funs1
-real(kind=db), dimension(2) ::  fval
-! real(kind=db), dimension(2,2) :: GetJacobian
-
-x0(1) = 2.0_db
-x0(2) = 3.0_db
-
-call funs1(x0, fval)
-call GetJacobian(jacob,  funs1, x0, 0.001_db,fval)
-
-call MatrixWrite(jacob)
-
-end subroutine finitedifftest
-
-subroutine funs1(x, fval0)
-use myutility; 
-implicit none
-real(kind=db), intent(IN), dimension(:) :: x
-real(kind=db), intent(OUT), dimension(:) :: fval0
-
-fval0(1) = x(2) - x(1)**2
-fval0(2) = 2 - x(1) - x(2)
-
-end subroutine funs1
+! end subroutine doglegtest
 
 
 
-subroutine funs3(x, fval0)
-use myutility; 
-implicit none
-real(kind=db), intent(IN), dimension(:) :: x
-real(kind=db), intent(OUT), dimension(:) :: fval0
+! subroutine finitedifftest()
+! use myutility; use hybrid, only : GetJacobian
+! ! test finite difference
+! implicit none
 
-fval0(1) = 10_db*(x(2) - x(1)**2)
-fval0(2) = 2 - x(1) - x(2)
+! real(kind=db), dimension(2,2) :: jacob
+! real(kind=db), dimension(2) :: x0
+! external  :: funs1
+! real(kind=db), dimension(2) ::  fval
+! ! real(kind=db), dimension(2,2) :: GetJacobian
 
-end subroutine funs3
+! x0(1) = 2.0_db
+! x0(2) = 3.0_db
 
+! call funs1(x0, fval)
+! call GetJacobian(jacob,  funs1, x0, 0.001_db,fval)
 
-subroutine funs2(x, fval0)
-use myutility; 
-! a little difficult function
-! solution x = [0.50, 1.00. 1.50 ]  (+ 2pi*n)
+! call MatrixWrite(jacob)
 
-implicit none
-real(kind=db), intent(IN), dimension(:) :: x
-real(kind=db), intent(OUT), dimension(:) :: fval0
+! end subroutine finitedifftest
 
-fval0(1) = 1.20_db * sin(x(1)) -1.40_db*cos(x(2))+ 0.70_db*sin(x(3)) &  
-			- 0.517133908732486_db
+! subroutine funs1(x, fval0)
+! use myutility; 
+! implicit none
+! real(kind=db), intent(IN), dimension(:) :: x
+! real(kind=db), intent(OUT), dimension(:) :: fval0
 
-fval0(2) = 0.80_db * cos(x(1)) -0.50_db*sin(x(2))+ 1.00_db*cos(x(3)) &
-			- 0.352067758776053_db
+! fval0(1) = x(2) - x(1)**2
+! fval0(2) = 2 - x(1) - x(2)
 
-fval0(3) = 3.50_db * sin(x(1)) -4.25_db*cos(x(2))+ 2.80_db*cos(x(3))  &
-			+ 0.4202312501553165_db
-
-end subroutine funs2
-
-
-subroutine qrtest
-use myutility; use hybrid, only : QRfactorization, QRupdate
-! test QR factorization and update
-
-implicit none
-real(kind=db), dimension(5,5) ::  Q,  A3
-real(kind=db), dimension(5,5) :: A, R ,A2, A4, A5, A6, B1, B2
-real(kind=db), dimension(5) :: u,v
-INTEGER              :: isize
-INTEGER,ALLOCATABLE  :: iseed(:)
-
-! set a seed. 
-CALL RANDOM_SEED(SIZE=isize)
-ALLOCATE( iseed(isize) )
-CALL RANDOM_SEED(GET=iseed)
-iseed = 1
-CALL RANDOM_SEED(PUT = iseed)  
-
-CALL RANDOM_NUMBER(A)           ! generate  random number
-A = A - 0.5
-write(*,*) 'A:'
-call MatrixWrite( A )
-
-Q = 1
-R = 1
-call QRfactorization(A,Q,R)
-
-A2 = matmul(Q , R)
-A3 = matmul(Q , transpose(Q))
-
-write(*,*) 'Q:'
-call MatrixWrite( Q )
-write(*,*) 'R:'
-call MatrixWrite( R )
-write(*,*) 'Q*R:'
-call MatrixWrite( A2)
-write(*,*) "Q*Q':"
-call MatrixWrite( A3)
-A3 = A2 - A
-write(*,*) "Q*R - A:"
-call MatrixWrite( A3)
-
-! update test
-call RANDOM_NUMBER(u)
-call RANDOM_NUMBER(v)
-u = (u-0.5) * 1
-v = (v-0.5) * 1
-
-write(*,*) ' '
-write(*,*) 'update A '
-call MatrixWrite( A+outer(u,v))
-call QRupdate(Q,R,u,v)
+! end subroutine funs1
 
 
-write(*,*) 'update Q:'
-call MatrixWrite( Q )
-write(*,*) 'update R:'
-call MatrixWrite( R )
-write(*,*) "Q*Q':"
-call MatrixWrite( matmul(Q , transpose(Q)))
-write(*,*) "Q*R - A:"
-call MatrixWrite( matmul(Q , R) - (A + outer(u,v)))
+
+! subroutine funs3(x, fval0)
+! use myutility; 
+! implicit none
+! real(kind=db), intent(IN), dimension(:) :: x
+! real(kind=db), intent(OUT), dimension(:) :: fval0
+
+! fval0(1) = 10_db*(x(2) - x(1)**2)
+! fval0(2) = 2 - x(1) - x(2)
+
+! end subroutine funs3
 
 
+! subroutine funs2(x, fval0)
+! use myutility; 
+! ! a little difficult function
+! ! solution x = [0.50, 1.00. 1.50 ]  (+ 2pi*n)
+
+! implicit none
+! real(kind=db), intent(IN), dimension(:) :: x
+! real(kind=db), intent(OUT), dimension(:) :: fval0
+
+! fval0(1) = 1.20_db * sin(x(1)) -1.40_db*cos(x(2))+ 0.70_db*sin(x(3)) &  
+! 			- 0.517133908732486_db
+
+! fval0(2) = 0.80_db * cos(x(1)) -0.50_db*sin(x(2))+ 1.00_db*cos(x(3)) &
+! 			- 0.352067758776053_db
+
+! fval0(3) = 3.50_db * sin(x(1)) -4.25_db*cos(x(2))+ 2.80_db*cos(x(3))  &
+! 			+ 0.4202312501553165_db
+
+! end subroutine funs2
+
+
+! subroutine qrtest
+! use myutility; use hybrid, only : QRfactorization, QRupdate
+! ! test QR factorization and update
+
+! implicit none
+! real(kind=db), dimension(5,5) ::  Q,  A3
+! real(kind=db), dimension(5,5) :: A, R ,A2, A4, A5, A6, B1, B2
+! real(kind=db), dimension(5) :: u,v
+! INTEGER              :: isize
+! INTEGER,ALLOCATABLE  :: iseed(:)
+
+! ! set a seed. 
+! CALL RANDOM_SEED(SIZE=isize)
+! ALLOCATE( iseed(isize) )
+! CALL RANDOM_SEED(GET=iseed)
+! iseed = 1
+! CALL RANDOM_SEED(PUT = iseed)  
+
+! CALL RANDOM_NUMBER(A)           ! generate  random number
+! A = A - 0.5
+! write(*,*) 'A:'
+! call MatrixWrite( A )
+
+! Q = 1
+! R = 1
+! call QRfactorization(A,Q,R)
+
+! A2 = matmul(Q , R)
+! A3 = matmul(Q , transpose(Q))
+
+! write(*,*) 'Q:'
+! call MatrixWrite( Q )
+! write(*,*) 'R:'
+! call MatrixWrite( R )
+! write(*,*) 'Q*R:'
+! call MatrixWrite( A2)
 ! write(*,*) "Q*Q':"
 ! call MatrixWrite( A3)
-! 
+! A3 = A2 - A
+! write(*,*) "Q*R - A:"
+! call MatrixWrite( A3)
 
-end subroutine qrtest
+! ! update test
+! call RANDOM_NUMBER(u)
+! call RANDOM_NUMBER(v)
+! u = (u-0.5) * 1
+! v = (v-0.5) * 1
+
+! write(*,*) ' '
+! write(*,*) 'update A '
+! call MatrixWrite( A+outer(u,v))
+! call QRupdate(Q,R,u,v)
 
 
-subroutine temp
-! temp place to put code
+! write(*,*) 'update Q:'
+! call MatrixWrite( Q )
+! write(*,*) 'update R:'
+! call MatrixWrite( R )
+! write(*,*) "Q*Q':"
+! call MatrixWrite( matmul(Q , transpose(Q)))
+! write(*,*) "Q*R - A:"
+! call MatrixWrite( matmul(Q , R) - (A + outer(u,v)))
 
 
-end subroutine temp
+! ! write(*,*) "Q*Q':"
+! ! call MatrixWrite( A3)
+! ! 
+
+! end subroutine qrtest
+
+
+! subroutine temp
+! ! temp place to put code
+
+
+! end subroutine temp
 
