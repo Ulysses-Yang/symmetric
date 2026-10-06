@@ -155,8 +155,8 @@ TL=TL_in
 TC=TC_in
 TR=TR_in
 Vb2=Vb_in    
-!P_Thom =(1.d0)*tau_Thom(TC)*Iel(Vb2,TL,TR)*(TR-TL) 
-P_Thom =(1.d0)*tau_Thom(T0)*Iel(Vb2,TL,TR)*(TR-TL)
+!P_Thom =(-1.d0)*tau_Thom(TC)*Iel(Vb2,TL,TR)*(TR-TL) 
+P_Thom =(-1.d0)*tau_Thom(TC)*Iel(Vb2,TL,TR)*(TR-TL) !改負號
 !
 return
 end function  P_Thom             

@@ -167,18 +167,18 @@ subroutine FsolveTLTCTR_Peltier(Tout)
 		fvalout      =fval,  &              ! f(xout)
 		JacobianOut  =jacob, &              ! Jacobian at x = xout
 		JacobianStep =1.d-8,  &             ! Stepsize for the Jacobian
-		display      =1,  &                 ! Control for the display
+		display      =0,  &                 ! Control for the display
 		MaxFunCall   = 1000, &              ! Max number of function call
 		factor       =1.0d-8, &             ! Initial value of delta
 		NoUpdate     = 0)                   ! control for update of Jacobian
 
 !	write(*,*) ' '
 !	write(*,*) 'Solution:'
-	call VectorWrite(xout2)
-	write(*,*) ' '
-	write(*,*) 'Function Value at the solution:'
-	call VectorWrite(fval)
-    write(*,"(5(A12,E12.4))") 'T0=', T0, 'Vb=', Vb,'K_TLR2TC=', K_TLR2TC, 'K_TL2T0=', K_TL2T0, 'K_TR2T0=', K_TR2T0
+	! call VectorWrite(xout2)
+	! write(*,*) ' '
+	! write(*,*) 'Function Value at the solution:'
+	! call VectorWrite(fval)
+    ! write(*,"(5(A12,E12.4))") 'T0=', T0, 'Vb=', Vb,'K_TLR2TC=', K_TLR2TC, 'K_TL2T0=', K_TL2T0, 'K_TR2T0=', K_TR2T0
     Tout(:)=xout2(:)	
 !!    
 	contains
