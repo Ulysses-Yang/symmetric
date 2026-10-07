@@ -176,15 +176,15 @@ write(*,'(A,I0)') 'FsolveHybrid ', solve_count
 		factor       =1.0d-9, &             ! Initial value of delta
 		NoUpdate     = 0)                   ! control for update of Jacobian
 
-!	write(*,*) ' '
-!	write(*,*) 'Solution:'
-	! call VectorWrite(xout2)
 	! write(*,*) ' '
-	! write(*,*) 'Function Value at the solution:'
-	! call VectorWrite(fval)
-    ! write(*,"(5(A12,E12.4))") 'T0=', T0, 'Vb=', Vb,'K_TLR2TC=', K_TLR2TC, 'K_TL2T0=', K_TL2T0, 'K_TR2T0=', K_TR2T0
-    ! Tout(:)=xout2(:)	
-!!    
+	write(*,*) 'Solution:'
+	call VectorWrite(xout2)
+	write(*,*) ' '
+	write(*,*) 'Function Value at the solution:'
+	call VectorWrite(fval)
+    write(*,"(5(A12,E12.4))") 'T0=', T0, 'Vb=', Vb,'K_TLR2TC=', K_TLR2TC, 'K_TL2T0=', K_TL2T0, 'K_TR2T0=', K_TR2T0
+    Tout(:)=xout2(:)	
+!    
 	contains
 		subroutine heatmodel(x, fval0)
         use global_parameters
